@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import searchButton from "../images/search-button.png"
+import searchButton from "../../images/search-button.png"
 
 export const FilterWrapper = styled.div`
   display: flex;

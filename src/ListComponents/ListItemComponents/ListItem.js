@@ -1,13 +1,10 @@
 import { useDispatch } from "react-redux"
-import { getSelectedLead } from "../redux/features/selectedLeadReducerSlice"
+import { getSelectedLead } from "../../redux/features/selectedLeadReducerSlice"
 import * as Styled from "./styled"
-import {
-  useDeleteLeadMutation,
-  useUpdateLeadMutation,
-} from "../redux/app/api/apiSlice"
-import { setSubmitProperty } from "../redux/features/submitPropertyReducerSlice"
-import { getSelectedLeadId } from "../redux/features/selectedLeadIdReducerSlice"
-import { getDeletedLeadId } from "../redux/features/deletedLeadIdReducerSlice"
+import { useDeleteLeadMutation } from "../../redux/app/api/apiSlice"
+import { setSubmitProperty } from "../../redux/features/submitPropertyReducerSlice"
+import { getSelectedLeadId } from "../../redux/features/selectedLeadIdReducerSlice"
+import { getDeletedLeadId } from "../../redux/features/deletedLeadIdReducerSlice"
 
 export const ListItem = ({ listItemdata }) => {
   const [deleteItem] = useDeleteLeadMutation()

@@ -5,19 +5,7 @@ import slectedLeadIdReducer from "../features/selectedLeadIdReducerSlice"
 import selectedLeadReducer from "../features/selectedLeadReducerSlice"
 import inputValueReducer from "../features/inputValueReducerSlice"
 import submitPropertyReducer from "../features/submitPropertyReducerSlice"
-
-// const store = configureStore({
-//   reducer: {
-//     addedLeadId: addedLeadIdReducer,
-//     deletedLeadId: deletedLeadIdReducer,
-//     selectedLead: selectedLeadReducer,
-//     selectedLeadId: slectedLeadIdReducer,
-//     inputValue: inputValueReducer,
-//     submitProperty: submitPropertyReducer,
-//   },
-// })
-
-// export default store
+import listStateReducer from "../features/listStateReducerSlice"
 
 import { configureStore } from "@reduxjs/toolkit"
 import { apiSlice } from "./api/apiSlice"
@@ -32,6 +20,7 @@ export const store = configureStore({
     selectedLeadId: slectedLeadIdReducer,
     inputValue: inputValueReducer,
     submitProperty: submitPropertyReducer,
+    listState: listStateReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),

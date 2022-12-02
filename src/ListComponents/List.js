@@ -1,8 +1,12 @@
+import { Filter } from "./FilterComponents/Filter"
 import { useGetLeadsQuery } from "../redux/app/api/apiSlice"
-import { ListItem } from "./ListItem"
+import { ListItem } from "./ListItemComponents/ListItem"
 import * as Styled from "./styled"
+import { useSelector } from "react-redux"
+import { useState } from "react"
 
 export const List = () => {
+  const listState = useSelector((state) => state.listState.list)
   const {
     data: leads,
     isLoading,
@@ -10,17 +14,41 @@ export const List = () => {
     isError,
     error,
   } = useGetLeadsQuery()
+  const [todo, setTodo] = useState([])
+
+  const change = (value) => {
+    const data = leads.filter((lead) => {
+      for (const key in lead) {
+        if (Object.hasOwnProperty.call(lead, key)) {
+          const element = lead[key]
+          if (typeof element === "string" && element.includes(value)) {
+            return lead
+          }
+        }
+      }
+    })
+    setTodo(data)
+  }
 
   let content
   if (isLoading) {
     content = <p>Loading...</p>
-  } else if (isSuccess) {
+  } else if (isSuccess && listState) {
     content = leads.map((lead) => {
+      return <ListItem listItemdata={lead} key={lead.id} />
+    })
+  } else if (isSuccess && !listState) {
+    content = todo.map((lead) => {
       return <ListItem listItemdata={lead} key={lead.id} />
     })
   } else if (isError) {
     content = <p>{error}</p>
   }
 
-  return <Styled.ListWrapper>{content}</Styled.ListWrapper>
+  return (
+    <Styled.ListWrapper>
+      <Filter onChange={change} />
+      {content}
+    </Styled.ListWrapper>
+  )
 }

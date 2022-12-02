@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { checkEmailValidation } from "../../utils"
 import * as Styled from "../styled"
 
