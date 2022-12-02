@@ -18,16 +18,15 @@ import { Organization } from "./FormInputFields/Organization"
 import { Phone } from "./FormInputFields/Phone"
 import { Role } from "./FormInputFields/Role"
 import * as Styled from "./styled"
-import { useDispatch, useSelector } from "react-redux"
-import { getSelectedLead } from "../redux/features/selectedLeadReducerSlice"
 import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 
 export const Form = () => {
-  const dispatch = useDispatch()
   const [addLead] = useAddLeadMutation()
   const [updateLead] = useUpdateLeadMutation()
   const selectedLead = useSelector((state) => state.selectedLead.lead)
   const selectedLeadId = useSelector((state) => state.selectedLeadId.id)
+  const deletedLeadId = useSelector((state) => state.deletedLeadId.id)
   const mustBeUpdated = useSelector((state) => state.submitProperty.property)
 
   const handleSubmit = (e) => {
@@ -49,6 +48,12 @@ export const Form = () => {
       mustBeUpdated
     ) {
       updateLead({ ...leadData, completed: !leadData.completed })
+      setFirstNameValue("")
+      setLastNameValue("")
+      setOrganizationValue("")
+      setRoleValue("")
+      setPhoneValue("")
+      setEmailValue("")
     }
   }
 
@@ -67,6 +72,15 @@ export const Form = () => {
     setPhoneValue(selectedLead.phone)
     setEmailValue(selectedLead.email)
   }, [selectedLead])
+
+  useEffect(() => {
+    setFirstNameValue("")
+    setLastNameValue("")
+    setOrganizationValue("")
+    setRoleValue("")
+    setPhoneValue("")
+    setEmailValue("")
+  }, [deletedLeadId])
 
   return (
     <Styled.FormWrapper>

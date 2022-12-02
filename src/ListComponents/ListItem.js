@@ -7,9 +7,9 @@ import {
 } from "../redux/app/api/apiSlice"
 import { setSubmitProperty } from "../redux/features/submitPropertyReducerSlice"
 import { getSelectedLeadId } from "../redux/features/selectedLeadIdReducerSlice"
+import { getDeletedLeadId } from "../redux/features/deletedLeadIdReducerSlice"
 
 export const ListItem = ({ listItemdata }) => {
-  const [updateLead] = useUpdateLeadMutation()
   const [deleteItem] = useDeleteLeadMutation()
   const dispatch = useDispatch()
   const { firstName, lastName, organization, role, email, phone } = listItemdata
@@ -21,8 +21,9 @@ export const ListItem = ({ listItemdata }) => {
   }
 
   const deleteItemElement = (e) => {
-    e.stopPropogation()
+    e.stopPropagation()
     deleteItem({ id: listItemdata.id })
+    dispatch(getDeletedLeadId(listItemdata.id))
   }
 
   return (

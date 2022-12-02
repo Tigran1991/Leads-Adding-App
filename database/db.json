@@ -6,22 +6,23 @@
       "organization": "Microsoft",
       "role": "Owner",
       "email": "bill@gmail.com",
-      "phone": "1234567899",
-      "id": 1
+      "phone": "1234567890",
+      "id": 1,
+      "completed": true
     },
     {
-      "firstName": "Adam",
-      "lastName": "Musk",
-      "organization": "Twitter",
-      "role": "Owner",
+      "firstName": "Elon",
+      "lastName": "Muskovich",
+      "organization": "Tesla",
+      "role": "Manager",
       "email": "elon@gmail.com",
-      "phone": "1234567890",
+      "phone": "1234567899",
       "id": 2,
       "completed": true
     },
     {
-      "firstName": "Jack",
-      "lastName": "Bezos",
+      "firstName": "Jamshud",
+      "lastName": "Bezons",
       "organization": "Amazon",
       "role": "Manager",
       "email": "jeff@yahoo.com",

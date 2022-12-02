@@ -22,6 +22,7 @@ export const ListItemDiv = styled.div`
   border-color: ${(props) => props.color};
   border-radius: 20px;
   margin-top: 10px;
+  cursor: pointer;
 `
 
 export const ListItemContent = styled.span``
