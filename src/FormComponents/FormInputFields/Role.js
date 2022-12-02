@@ -1,21 +1,9 @@
-import { useState } from "react"
+import { options } from "../../utils"
 import * as Styled from "../styled"
 
-export const Role = () => {
-  const [roleValue, setRoleValue] = useState("")
-
-  const options = [
-    "Role",
-    "CEO",
-    "Manager",
-    "Account Manager",
-    "Owner",
-    "Operations",
-    "Board Member",
-  ]
-
+export const Role = ({ onChange, role }) => {
   const handleChange = (e) => {
-    setRoleValue(e.target.value)
+    onChange(e.target.value)
   }
 
   return (
@@ -23,7 +11,7 @@ export const Role = () => {
       <Styled.RoleDiv
         type="text"
         onChange={handleChange}
-        value={roleValue}
+        value={role || ""}
         name="role"
         required
       >

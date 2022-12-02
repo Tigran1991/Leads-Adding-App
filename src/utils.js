@@ -7,6 +7,28 @@ export const formInitialState = {
   phone: "",
 }
 
+export const options = [
+  "Role",
+  "CEO",
+  "Manager",
+  "Account Manager",
+  "Owner",
+  "Operations",
+  "Board Member",
+]
+
+export const createLeadData = (event, selectedId) => {
+  return {
+    firstName: event.target.firstName.value,
+    lastName: event.target.lastName.value,
+    organization: event.target.organization.value,
+    role: event.target.role.value,
+    email: event.target.email.value,
+    phone: event.target.phone.value,
+    id: selectedId,
+  }
+}
+
 export const checkEmailValidation = (email) => {
   const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/
   if (regEx.test(email)) {

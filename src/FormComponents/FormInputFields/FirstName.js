@@ -1,11 +1,8 @@
-import { useState } from "react"
 import * as Styled from "../styled"
 
-export const FirstName = () => {
-  const [firstNameValue, setFirstNameValue] = useState("")
-
+export const FirstName = ({ onChange, firstName }) => {
   const handleChange = (e) => {
-    setFirstNameValue(e.target.value)
+    onChange(e.target.value)
   }
 
   return (
@@ -14,7 +11,7 @@ export const FirstName = () => {
         type="text"
         placeholder="FirstName"
         onChange={handleChange}
-        value={firstNameValue}
+        value={firstName || ""}
         name="firstName"
         required
       />

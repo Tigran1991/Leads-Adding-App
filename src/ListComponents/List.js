@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
-import { useGetLeadsQuery } from "../api/apiSlice"
+import { useGetLeadsQuery } from "../redux/app/api/apiSlice"
 import { ListItem } from "./ListItem"
 import * as Styled from "./styled"
 

@@ -2,12 +2,11 @@ import { useState } from "react"
 import { checkPhoneValidation } from "../../utils"
 import * as Styled from "../styled"
 
-export const Phone = () => {
-  const [phoneValue, setPhoneValue] = useState("")
+export const Phone = ({ onChange, phone }) => {
   const [isValid, setIsValid] = useState(true)
 
   const handleChange = (e) => {
-    setPhoneValue(e.target.value)
+    onChange(e.target.value)
     const emailValidation = checkPhoneValidation(e.target.value)
     if (emailValidation) {
       setIsValid(true)
@@ -22,7 +21,7 @@ export const Phone = () => {
         type="tel"
         placeholder="Phone"
         onChange={handleChange}
-        value={phoneValue}
+        value={phone || ""}
         name="phone"
         required
       />

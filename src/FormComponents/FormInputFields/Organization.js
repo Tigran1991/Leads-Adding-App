@@ -1,11 +1,8 @@
-import { useState } from "react"
 import * as Styled from "../styled"
 
-export const Organization = () => {
-  const [organizationValue, setOrganizationValue] = useState("")
-
+export const Organization = ({ onChange, organization }) => {
   const handleChange = (e) => {
-    setOrganizationValue(e.target.value)
+    onChange(e.target.value)
   }
 
   return (
@@ -14,7 +11,7 @@ export const Organization = () => {
         type="text"
         placeholder="Organization"
         onChange={handleChange}
-        value={organizationValue}
+        value={organization || ""}
         name="organization"
         required
       />

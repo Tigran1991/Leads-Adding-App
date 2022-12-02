@@ -1,20 +1,16 @@
-import { useState } from "react"
 import * as Styled from "../styled"
 
-export const LastName = () => {
-  const [lastNameValue, setLastNameValue] = useState("")
-
+export const LastName = ({ onChange, lastName }) => {
   const handleChange = (e) => {
-    setLastNameValue(e.target.value)
+    onChange(e.target.value)
   }
-
   return (
     <Styled.InputWrapper>
       <Styled.LastNameDiv
         type="text"
         placeholder="LastName"
         onChange={handleChange}
-        value={lastNameValue}
+        value={lastName || ""}
         name="lastName"
         required
       />
