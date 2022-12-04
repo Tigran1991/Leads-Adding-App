@@ -2,11 +2,11 @@ import { Filter } from "./FilterComponents/Filter"
 import { useGetLeadsQuery } from "../redux/app/api/apiSlice"
 import { ListItem } from "./ListItemComponents/ListItem"
 import * as Styled from "./styled"
-import { useSelector } from "react-redux"
-import { useState } from "react"
+// import { useSelector } from "react-redux"
+import { useEffect, useState } from "react"
 
 export const List = () => {
-  const listState = useSelector((state) => state.listState.list)
+  // const listState = useSelector((state) => state.listState.list)
   const {
     data: leads,
     isLoading,
@@ -14,21 +14,32 @@ export const List = () => {
     isError,
     error,
   } = useGetLeadsQuery()
+  const [filterState, setFilterState] = useState("")
+  const [listState, setListState] = useState(true)
   const [todo, setTodo] = useState([])
 
   const change = (value) => {
-    const data = leads.filter((lead) => {
-      for (const key in lead) {
-        if (Object.hasOwnProperty.call(lead, key)) {
-          const element = lead[key]
-          if (typeof element === "string" && element.includes(value)) {
-            return lead
+    setFilterState(value)
+  }
+
+  useEffect(() => {
+    if (filterState.length >= 3) {
+      setListState(false)
+      const data = leads.filter((lead) => {
+        for (const key in lead) {
+          if (Object.hasOwnProperty.call(lead, key)) {
+            const element = lead[key]
+            if (typeof element === "string" && element.includes(filterState)) {
+              return lead
+            }
           }
         }
-      }
-    })
-    setTodo(data)
-  }
+      })
+      setTodo(data)
+    } else {
+      setListState(true)
+    }
+  }, [leads, filterState])
 
   let content
   if (isLoading) {

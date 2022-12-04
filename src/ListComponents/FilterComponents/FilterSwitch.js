@@ -1,9 +1,13 @@
+import { useState } from "react"
 import * as Styled from "./styled"
 
 export const FilterSwitch = () => {
+  const [todo, setTodo] = useState()
+
   const handleChange = (e) => {
-    console.log(e.target.value)
+    setTodo(!todo)
   }
+
   return (
     <>
       <Styled.Switch>

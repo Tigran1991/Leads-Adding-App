@@ -1,3 +1,13 @@
 {
-  "leads": []
+  "leads": [
+    {
+      "firstName": "Elon",
+      "lastName": "Musk",
+      "organization": "Tesla",
+      "role": "Manager",
+      "email": "elon@gmail.com",
+      "phone": "1234567899",
+      "id": 2
+    }
+  ]
 }

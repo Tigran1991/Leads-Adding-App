@@ -12,9 +12,13 @@ export const selectedLeadSlice = createSlice({
     getSelectedLead: (state, action) => {
       state.lead = action.payload
     },
+    setSelectedLeadProperty: (state, action) => {
+      state.lead.property = action.payload
+    },
   },
 })
 
-export const { getSelectedLead } = selectedLeadSlice.actions
+export const { getSelectedLead, setSelectedLeadProperty } =
+  selectedLeadSlice.actions
 
 export default selectedLeadSlice.reducer

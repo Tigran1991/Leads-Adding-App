@@ -5,7 +5,7 @@ import slectedLeadIdReducer from "../features/selectedLeadIdReducerSlice"
 import selectedLeadReducer from "../features/selectedLeadReducerSlice"
 import inputValueReducer from "../features/inputValueReducerSlice"
 import submitPropertyReducer from "../features/submitPropertyReducerSlice"
-import listStateReducer from "../features/listStateReducerSlice"
+import clearButtonStateReducer from "../features/clearButtonStateReducerSlice"
 
 import { configureStore } from "@reduxjs/toolkit"
 import { apiSlice } from "./api/apiSlice"
@@ -20,7 +20,7 @@ export const store = configureStore({
     selectedLeadId: slectedLeadIdReducer,
     inputValue: inputValueReducer,
     submitProperty: submitPropertyReducer,
-    listState: listStateReducer,
+    clearButtonState: clearButtonStateReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),

@@ -5,17 +5,26 @@ import { useDeleteLeadMutation } from "../../redux/app/api/apiSlice"
 import { setSubmitProperty } from "../../redux/features/submitPropertyReducerSlice"
 import { getSelectedLeadId } from "../../redux/features/selectedLeadIdReducerSlice"
 import { getDeletedLeadId } from "../../redux/features/deletedLeadIdReducerSlice"
+// import { useState } from "react"
 
 export const ListItem = ({ listItemdata }) => {
   const [deleteItem] = useDeleteLeadMutation()
   const dispatch = useDispatch()
+  // const [borderColor, setBorderColor] = useState(false)
   const { firstName, lastName, organization, role, email, phone } = listItemdata
 
-  const updateListItemContent = () => {
+  const updateListItemContent = (e) => {
+    console.log("click")
     dispatch(getSelectedLead(listItemdata))
     dispatch(setSubmitProperty(true))
     dispatch(getSelectedLeadId(listItemdata.id))
   }
+
+  // const setListItemProperty = (e) => {
+  //   console.log("double click")
+  //   setBorderColor(!borderColor)
+  //   dispatch(setListItemProperty(true))
+  // }
 
   const deleteItemElement = (e) => {
     e.stopPropagation()
@@ -25,7 +34,10 @@ export const ListItem = ({ listItemdata }) => {
 
   return (
     <>
-      <Styled.ListItemDiv onClick={updateListItemContent}>
+      <Styled.ListItemDiv
+        onClick={updateListItemContent}
+        // color={borderColor ? "red" : "#333"}
+      >
         <span>{`${firstName} ${lastName}`}</span>
         <span>{`${role}/${organization}`}</span>
         <span>{email}</span>

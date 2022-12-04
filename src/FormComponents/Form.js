@@ -2,13 +2,10 @@ import {
   checkEmailValidation,
   checkPhoneValidation,
   createLeadData,
-  formInitialState,
 } from "../utils"
 import {
-  useGetLeadsQuery,
   useAddLeadMutation,
   useUpdateLeadMutation,
-  useDeleteLeadMutation,
 } from "../redux/app/api/apiSlice"
 import { Buttons } from "./Buttons/Buttons"
 import { Email } from "./FormInputFields/Email"
@@ -22,12 +19,33 @@ import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 
 export const Form = () => {
+  const [firstNameValue, setFirstNameValue] = useState("")
+  const [lastNameValue, setLastNameValue] = useState("")
+  const [organizationValue, setOrganizationValue] = useState("")
+  const [roleValue, setRoleValue] = useState("")
+  const [phoneValue, setPhoneValue] = useState("")
+  const [emailValue, setEmailValue] = useState("")
+
+  const clearFormFields = () => {
+    setFirstNameValue("")
+    setLastNameValue("")
+    setOrganizationValue("")
+    setRoleValue("")
+    setPhoneValue("")
+    setEmailValue("")
+  }
+
   const [addLead] = useAddLeadMutation()
   const [updateLead] = useUpdateLeadMutation()
   const selectedLead = useSelector((state) => state.selectedLead.lead)
   const selectedLeadId = useSelector((state) => state.selectedLeadId.id)
   const deletedLeadId = useSelector((state) => state.deletedLeadId.id)
   const mustBeUpdated = useSelector((state) => state.submitProperty.property)
+  const clearButtonState = useSelector(
+    (state) => state.clearButtonState.buttonState
+  )
+
+  console.log(mustBeUpdated)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -36,33 +54,16 @@ export const Form = () => {
     const leadData = createLeadData(e, selectedLeadId)
     if (emailValidationStatus && phoneValidationStatus && !mustBeUpdated) {
       addLead(leadData)
-      setFirstNameValue("")
-      setLastNameValue("")
-      setOrganizationValue("")
-      setRoleValue("")
-      setPhoneValue("")
-      setEmailValue("")
+      clearFormFields()
     } else if (
       emailValidationStatus &&
       phoneValidationStatus &&
       mustBeUpdated
     ) {
       updateLead({ ...leadData, completed: !leadData.completed })
-      setFirstNameValue("")
-      setLastNameValue("")
-      setOrganizationValue("")
-      setRoleValue("")
-      setPhoneValue("")
-      setEmailValue("")
+      clearFormFields()
     }
   }
-
-  const [firstNameValue, setFirstNameValue] = useState("")
-  const [lastNameValue, setLastNameValue] = useState("")
-  const [organizationValue, setOrganizationValue] = useState("")
-  const [roleValue, setRoleValue] = useState("")
-  const [phoneValue, setPhoneValue] = useState("")
-  const [emailValue, setEmailValue] = useState("")
 
   useEffect(() => {
     setFirstNameValue(selectedLead.firstName)
@@ -74,13 +75,8 @@ export const Form = () => {
   }, [selectedLead])
 
   useEffect(() => {
-    setFirstNameValue("")
-    setLastNameValue("")
-    setOrganizationValue("")
-    setRoleValue("")
-    setPhoneValue("")
-    setEmailValue("")
-  }, [deletedLeadId])
+    clearFormFields()
+  }, [deletedLeadId, clearButtonState])
 
   return (
     <Styled.FormWrapper>
