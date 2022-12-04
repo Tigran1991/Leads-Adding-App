@@ -19,11 +19,7 @@ export const List = () => {
   const [listDisplayState, setListDisplayState] = useState("off")
 
   const [listState, setListState] = useState(true)
-  const [todo, setTodo] = useState([])
-
-  // const isShowSelectedLeads = useSelector(
-  //   (state) => state.leadsListState.listState
-  // )
+  const [updatedLeadsData, setUpdatedListData] = useState([])
 
   const getFilteredLeads = (value) => {
     setFilteredLeads(value)
@@ -53,18 +49,21 @@ export const List = () => {
           }
         }
       })
-      setTodo(data)
+      setUpdatedListData(data)
     } else {
       setListState(true)
     }
+  }, [leads, filteredLeads])
+
+  useEffect(() => {
     if (listDisplayState === "on") {
       setListState(false)
       const data = leads.filter((lead) => lead.selected === true)
-      setTodo(data)
+      setUpdatedListData(data)
     } else {
       setListState(true)
     }
-  }, [leads, filteredLeads, listDisplayState])
+  }, [leads, listDisplayState])
 
   let content
   if (isLoading) {
@@ -74,7 +73,8 @@ export const List = () => {
       return <ListItem listItemdata={lead} key={lead.id} />
     })
   } else if (isSuccess && !listState) {
-    content = todo.map((lead) => {
+    console.log(updatedLeadsData)
+    content = updatedLeadsData.map((lead) => {
       return <ListItem listItemdata={lead} key={lead.id} />
     })
   } else if (isError) {
