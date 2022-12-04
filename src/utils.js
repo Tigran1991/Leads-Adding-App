@@ -26,6 +26,7 @@ export const createLeadData = (event, selectedId) => {
     email: event.target.email.value,
     phone: event.target.phone.value,
     id: selectedId,
+    selected: false,
   }
 }
 

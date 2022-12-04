@@ -4,9 +4,10 @@ import { ListItem } from "./ListItemComponents/ListItem"
 import * as Styled from "./styled"
 // import { useSelector } from "react-redux"
 import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { getSelectedLeadId } from "../redux/features/selectedLeadIdReducerSlice"
 
 export const List = () => {
-  // const listState = useSelector((state) => state.listState.list)
   const {
     data: leads,
     isLoading,
@@ -14,22 +15,39 @@ export const List = () => {
     isError,
     error,
   } = useGetLeadsQuery()
-  const [filterState, setFilterState] = useState("")
+  const [filteredLeads, setFilteredLeads] = useState("")
+  const [listDisplayState, setListDisplayState] = useState("off")
+
   const [listState, setListState] = useState(true)
   const [todo, setTodo] = useState([])
 
-  const change = (value) => {
-    setFilterState(value)
+  // const isShowSelectedLeads = useSelector(
+  //   (state) => state.leadsListState.listState
+  // )
+
+  const getFilteredLeads = (value) => {
+    setFilteredLeads(value)
+  }
+
+  const getListDisplayState = (value) => {
+    if (listDisplayState === "on") {
+      setListDisplayState("off")
+    } else {
+      setListDisplayState(value)
+    }
   }
 
   useEffect(() => {
-    if (filterState.length >= 3) {
+    if (filteredLeads.length >= 3) {
       setListState(false)
       const data = leads.filter((lead) => {
         for (const key in lead) {
           if (Object.hasOwnProperty.call(lead, key)) {
             const element = lead[key]
-            if (typeof element === "string" && element.includes(filterState)) {
+            if (
+              typeof element === "string" &&
+              element.includes(filteredLeads)
+            ) {
               return lead
             }
           }
@@ -39,7 +57,14 @@ export const List = () => {
     } else {
       setListState(true)
     }
-  }, [leads, filterState])
+    if (listDisplayState === "on") {
+      setListState(false)
+      const data = leads.filter((lead) => lead.selected === true)
+      setTodo(data)
+    } else {
+      setListState(true)
+    }
+  }, [leads, filteredLeads, listDisplayState])
 
   let content
   if (isLoading) {
@@ -58,7 +83,10 @@ export const List = () => {
 
   return (
     <Styled.ListWrapper>
-      <Filter onChange={change} />
+      <Filter
+        onChangeFilteredLeads={getFilteredLeads}
+        onChangeListDisplayState={getListDisplayState}
+      />
       {content}
     </Styled.ListWrapper>
   )

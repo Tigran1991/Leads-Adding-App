@@ -10,6 +10,7 @@ import clearButtonStateReducer from "../features/clearButtonStateReducerSlice"
 import { configureStore } from "@reduxjs/toolkit"
 import { apiSlice } from "./api/apiSlice"
 import { setupListeners } from "@reduxjs/toolkit/query"
+import leadsListStateReducer from "../features/leadsListStateReducerSlice"
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
     selectedLead: selectedLeadReducer,
     selectedLeadId: slectedLeadIdReducer,
     inputValue: inputValueReducer,
+    leadsListState: leadsListStateReducer,
     submitProperty: submitPropertyReducer,
     clearButtonState: clearButtonStateReducer,
   },

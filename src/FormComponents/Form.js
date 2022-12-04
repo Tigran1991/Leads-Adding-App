@@ -45,8 +45,6 @@ export const Form = () => {
     (state) => state.clearButtonState.buttonState
   )
 
-  console.log(mustBeUpdated)
-
   const handleSubmit = (e) => {
     e.preventDefault()
     const emailValidationStatus = checkEmailValidation(e.target.email.value)

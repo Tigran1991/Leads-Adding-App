@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux"
 import { useGetLeadsQuery } from "../../redux/app/api/apiSlice"
 import * as Styled from "./styled"
 
-export const FilterLeads = ({ onChange }) => {
+export const FilterLeads = ({ onChangeFilteredLeads }) => {
   const filterLeads = (e) => {
-    onChange(e.target.value)
+    onChangeFilteredLeads(e.target.value)
   }
 
   return (

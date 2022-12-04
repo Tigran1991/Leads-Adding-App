@@ -1,13 +1,24 @@
 {
   "leads": [
     {
+      "firstName": "Bill",
+      "lastName": "Gates",
+      "organization": "Microsoft",
+      "role": "Manager",
+      "email": "bill@gmail.com",
+      "phone": "1234567899",
+      "id": 1,
+      "selected": false
+    },
+    {
       "firstName": "Elon",
       "lastName": "Musk",
       "organization": "Tesla",
       "role": "Manager",
       "email": "elon@gmail.com",
-      "phone": "1234567899",
-      "id": 2
+      "phone": "1234567890",
+      "id": 2,
+      "selected": false
     }
   ]
 }

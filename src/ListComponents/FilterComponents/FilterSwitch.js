@@ -1,17 +1,14 @@
-import { useState } from "react"
 import * as Styled from "./styled"
 
-export const FilterSwitch = () => {
-  const [todo, setTodo] = useState()
-
-  const handleChange = (e) => {
-    setTodo(!todo)
+export const FilterSwitch = ({ onChangeListDisplayState }) => {
+  const handleDisplayState = (e) => {
+    onChangeListDisplayState(e.target.value)
   }
 
   return (
     <>
       <Styled.Switch>
-        <Styled.Checkbox type="checkbox" onChange={handleChange} />
+        <Styled.Checkbox type="checkbox" onChange={handleDisplayState} />
         <Styled.SliderRound />
       </Styled.Switch>
     </>
