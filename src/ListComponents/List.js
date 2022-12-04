@@ -2,10 +2,7 @@ import { Filter } from "./FilterComponents/Filter"
 import { useGetLeadsQuery } from "../redux/app/api/apiSlice"
 import { ListItem } from "./ListItemComponents/ListItem"
 import * as Styled from "./styled"
-// import { useSelector } from "react-redux"
 import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { getSelectedLeadId } from "../redux/features/selectedLeadIdReducerSlice"
 
 export const List = () => {
   const {
@@ -15,11 +12,18 @@ export const List = () => {
     isError,
     error,
   } = useGetLeadsQuery()
+
   const [filteredLeads, setFilteredLeads] = useState("")
   const [listDisplayState, setListDisplayState] = useState("off")
 
   const [listState, setListState] = useState(true)
   const [updatedLeadsData, setUpdatedListData] = useState([])
+
+  useEffect(() => {
+    if (isSuccess) {
+      setUpdatedListData(leads)
+    }
+  }, [isSuccess])
 
   const getFilteredLeads = (value) => {
     setFilteredLeads(value)
@@ -36,7 +40,7 @@ export const List = () => {
   useEffect(() => {
     if (filteredLeads.length >= 3) {
       setListState(false)
-      const data = leads.filter((lead) => {
+      const data = updatedLeadsData.filter((lead) => {
         for (const key in lead) {
           if (Object.hasOwnProperty.call(lead, key)) {
             const element = lead[key]
@@ -50,20 +54,20 @@ export const List = () => {
         }
       })
       setUpdatedListData(data)
-    } else {
+    } else if (filteredLeads === "") {
       setListState(true)
     }
-  }, [leads, filteredLeads])
+  }, [filteredLeads])
 
   useEffect(() => {
     if (listDisplayState === "on") {
       setListState(false)
-      const data = leads.filter((lead) => lead.selected === true)
+      const data = updatedLeadsData.filter((lead) => lead.selected === true)
       setUpdatedListData(data)
     } else {
       setListState(true)
     }
-  }, [leads, listDisplayState])
+  }, [listDisplayState])
 
   let content
   if (isLoading) {
@@ -73,7 +77,6 @@ export const List = () => {
       return <ListItem listItemdata={lead} key={lead.id} />
     })
   } else if (isSuccess && !listState) {
-    console.log(updatedLeadsData)
     content = updatedLeadsData.map((lead) => {
       return <ListItem listItemdata={lead} key={lead.id} />
     })
