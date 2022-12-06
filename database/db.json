@@ -1,34 +1,35 @@
 {
   "leads": [
     {
-      "firstName": "Jeff",
-      "lastName": "Bezos",
-      "organization": "Amazon",
-      "role": "Owner",
-      "email": "jeff@yahoo.com",
-      "phone": "1234569990",
-      "id": 3,
-      "selected": false
-    },
-    {
       "firstName": "Bill",
       "lastName": "Gates",
       "organization": "Microsoft",
       "role": "Manager",
       "email": "bill@gmail.com",
-      "phone": "1234567899",
-      "id": 4,
+      "phone": "1234567890",
+      "id": 1,
       "selected": true
     },
     {
       "firstName": "Elon",
       "lastName": "Musk",
       "organization": "Tesla",
-      "role": "Manager",
-      "email": "elon@gmail.com",
-      "phone": "1234567890",
-      "id": 5,
-      "selected": true
+      "role": "Owner",
+      "email": "elon@yahoo.com",
+      "phone": "1234567899",
+      "id": 2,
+      "selected": true,
+      "completed": true
+    },
+    {
+      "firstName": "Jeff",
+      "lastName": "Bezos",
+      "organization": "Amazon",
+      "role": "Owner",
+      "email": "jeff@yahoo.com",
+      "phone": "1234567899",
+      "id": 3,
+      "selected": false
     }
   ]
 }

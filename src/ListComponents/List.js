@@ -5,6 +5,7 @@ import * as Styled from "./styled"
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { checkFilterState } from "../redux/features/filterSelectedStateReducerSlice"
+import { filterByFilterInput } from "../utils"
 
 export const List = () => {
   const dispatch = useDispatch()
@@ -40,47 +41,25 @@ export const List = () => {
   }
 
   useEffect(() => {
+    dispatch(checkFilterState(listDisplayState))
     if (filterInputValue.length >= 3 && listDisplayState === "off") {
       setListState(false)
-      const listData = leads.filter((lead) => {
-        for (const key in lead) {
-          if (Object.hasOwnProperty.call(lead, key)) {
-            const element = lead[key]
-            if (
-              typeof element === "string" &&
-              element.includes(filterInputValue)
-            ) {
-              return lead
-            }
-          }
-        }
-      })
+      const listData = filterByFilterInput(leads, filterInputValue)
       setUpdatedListData(listData)
     } else if (filterInputValue.length >= 3 && listDisplayState === "on") {
       setListState(false)
-      const listData = updatedLeadsData.filter((lead) => {
-        for (const key in lead) {
-          if (Object.hasOwnProperty.call(lead, key)) {
-            const element = lead[key]
-            if (
-              typeof element === "string" &&
-              element.includes(filterInputValue)
-            ) {
-              return lead
-            }
-          }
-        }
-      })
+      const listData = filterByFilterInput(updatedLeadsData, filterInputValue)
       setUpdatedListData(listData)
     } else if (!filterInputValue.length && listDisplayState === "on") {
       setListState(false)
       const listData = leads.filter((lead) => lead.selected === true)
       setUpdatedListData(listData)
+    } else if (!filterInputValue.length && listDisplayState === "off") {
+      setListState(true)
     }
-  }, [leads, filterInputValue])
+  }, [leads, listDisplayState, filterInputValue.length])
 
   useEffect(() => {
-    dispatch(checkFilterState(listDisplayState))
     if (!filterInputValue.length && listDisplayState === "on") {
       setListState(false)
       const listData = leads.filter((lead) => lead.selected === true)
@@ -93,22 +72,10 @@ export const List = () => {
       setUpdatedListData(listData)
     } else if (filterInputValue.length >= 3 && listDisplayState === "off") {
       setListState(false)
-      const listData = leads.filter((lead) => {
-        for (const key in lead) {
-          if (Object.hasOwnProperty.call(lead, key)) {
-            const element = lead[key]
-            if (
-              typeof element === "string" &&
-              element.includes(filterInputValue)
-            ) {
-              return lead
-            }
-          }
-        }
-      })
+      const listData = filterByFilterInput(leads, filterInputValue)
       setUpdatedListData(listData)
     }
-  }, [leads, listDisplayState, dispatch, filterInputValue.length])
+  }, [leads, listDisplayState, filterInputValue.length])
 
   let content
   if (isLoading) {
