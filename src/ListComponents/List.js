@@ -3,8 +3,11 @@ import { useGetLeadsQuery } from "../redux/app/api/apiSlice"
 import { ListItem } from "./ListItemComponents/ListItem"
 import * as Styled from "./styled"
 import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
+import { checkFilterState } from "../redux/features/filterSelectedStateReducerSlice"
 
 export const List = () => {
+  const dispatch = useDispatch()
   const {
     data: leads,
     isLoading,
@@ -40,7 +43,7 @@ export const List = () => {
   useEffect(() => {
     if (filteredLeads.length >= 3) {
       setListState(false)
-      const data = updatedLeadsData.filter((lead) => {
+      const listData = leads.filter((lead) => {
         for (const key in lead) {
           if (Object.hasOwnProperty.call(lead, key)) {
             const element = lead[key]
@@ -53,18 +56,20 @@ export const List = () => {
           }
         }
       })
-      setUpdatedListData(data)
+      console.log(listData)
+      setUpdatedListData(listData)
     } else if (filteredLeads === "") {
       setListState(true)
     }
   }, [filteredLeads])
 
   useEffect(() => {
+    dispatch(checkFilterState(listDisplayState))
     if (listDisplayState === "on") {
       setListState(false)
-      const data = updatedLeadsData.filter((lead) => lead.selected === true)
-      setUpdatedListData(data)
-    } else {
+      const listData = leads.filter((lead) => lead.selected === true)
+      setUpdatedListData(listData)
+    } else if (listDisplayState === "off") {
       setListState(true)
     }
   }, [listDisplayState])

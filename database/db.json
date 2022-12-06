@@ -6,8 +6,18 @@
       "organization": "Microsoft",
       "role": "Manager",
       "email": "bill@gmail.com",
-      "phone": "1234567899",
+      "phone": "1234567890",
       "id": 1,
+      "selected": false
+    },
+    {
+      "firstName": "Elon",
+      "lastName": "Musk",
+      "organization": "Tesla",
+      "role": "Manager",
+      "email": "elon@gmail.com",
+      "phone": "1234567899",
+      "id": 2,
       "selected": true
     },
     {
@@ -15,10 +25,10 @@
       "lastName": "Bezos",
       "organization": "Amazon",
       "role": "Owner",
-      "email": "jeff@yahoo.com",
-      "phone": "1234567890",
+      "email": "jeff@gmail.com",
+      "phone": "1234567899",
       "id": 3,
-      "selected": false
+      "selected": true
     }
   ]
 }

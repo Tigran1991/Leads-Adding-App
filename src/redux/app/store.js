@@ -11,6 +11,7 @@ import { configureStore } from "@reduxjs/toolkit"
 import { apiSlice } from "./api/apiSlice"
 import { setupListeners } from "@reduxjs/toolkit/query"
 import leadsListStateReducer from "../features/leadsListStateReducerSlice"
+import filterSelectedStateSlice from "../features/filterSelectedStateReducerSlice"
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +24,7 @@ export const store = configureStore({
     leadsListState: leadsListStateReducer,
     submitProperty: submitPropertyReducer,
     clearButtonState: clearButtonStateReducer,
+    filterSelectedState: filterSelectedStateSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
