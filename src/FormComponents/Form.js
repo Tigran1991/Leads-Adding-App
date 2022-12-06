@@ -49,7 +49,7 @@ export const Form = () => {
     e.preventDefault()
     const emailValidationStatus = checkEmailValidation(e.target.email.value)
     const phoneValidationStatus = checkPhoneValidation(e.target.phone.value)
-    const leadData = createLeadData(e, selectedLeadId)
+    const leadData = createLeadData(e, selectedLeadId, selectedLead.selected)
     if (emailValidationStatus && phoneValidationStatus && !mustBeUpdated) {
       addLead(leadData)
       clearFormFields()
@@ -58,7 +58,7 @@ export const Form = () => {
       phoneValidationStatus &&
       mustBeUpdated
     ) {
-      updateLead({ ...leadData, completed: !leadData.completed })
+      updateLead({ ...leadData })
       clearFormFields()
     }
   }

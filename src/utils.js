@@ -17,7 +17,7 @@ export const options = [
   "Board Member",
 ]
 
-export const createLeadData = (event, selectedId) => {
+export const createLeadData = (event, selectedId, state) => {
   return {
     firstName: event.target.firstName.value,
     lastName: event.target.lastName.value,
@@ -26,7 +26,7 @@ export const createLeadData = (event, selectedId) => {
     email: event.target.email.value,
     phone: event.target.phone.value,
     id: selectedId,
-    selected: false,
+    selected: state,
   }
 }
 
