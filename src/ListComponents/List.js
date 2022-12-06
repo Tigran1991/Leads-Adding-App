@@ -16,9 +16,8 @@ export const List = () => {
     error,
   } = useGetLeadsQuery()
 
-  const [filteredLeads, setFilteredLeads] = useState("")
-  const [listDisplayState, setListDisplayState] = useState("off")
-
+  const [filterInputValue, setFilterInputValue] = useState("") // filters current value
+  const [listDisplayState, setListDisplayState] = useState("off") // lead list display state by based on filter switcher
   const [listState, setListState] = useState(true)
   const [updatedLeadsData, setUpdatedListData] = useState([])
 
@@ -26,10 +25,10 @@ export const List = () => {
     if (isSuccess) {
       setUpdatedListData(leads)
     }
-  }, [isSuccess])
+  }, [leads, isSuccess])
 
-  const getFilteredLeads = (value) => {
-    setFilteredLeads(value)
+  const getFilterInputValue = (value) => {
+    setFilterInputValue(value)
   }
 
   const getListDisplayState = (value) => {
@@ -41,7 +40,7 @@ export const List = () => {
   }
 
   useEffect(() => {
-    if (filteredLeads.length >= 3) {
+    if (filterInputValue.length >= 3) {
       setListState(false)
       const listData = leads.filter((lead) => {
         for (const key in lead) {
@@ -49,19 +48,18 @@ export const List = () => {
             const element = lead[key]
             if (
               typeof element === "string" &&
-              element.includes(filteredLeads)
+              element.includes(filterInputValue)
             ) {
               return lead
             }
           }
         }
       })
-      console.log(listData)
       setUpdatedListData(listData)
-    } else if (filteredLeads === "") {
+    } else if (!filterInputValue.length) {
       setListState(true)
     }
-  }, [filteredLeads])
+  }, [leads, filterInputValue])
 
   useEffect(() => {
     dispatch(checkFilterState(listDisplayState))
@@ -72,7 +70,7 @@ export const List = () => {
     } else if (listDisplayState === "off") {
       setListState(true)
     }
-  }, [listDisplayState])
+  }, [leads, listDisplayState, dispatch])
 
   let content
   if (isLoading) {
@@ -92,7 +90,7 @@ export const List = () => {
   return (
     <Styled.ListWrapper>
       <Filter
-        onChangeFilteredLeads={getFilteredLeads}
+        onChangeFilteredLeads={getFilterInputValue}
         onChangeListDisplayState={getListDisplayState}
       />
       {content}

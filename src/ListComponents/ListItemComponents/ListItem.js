@@ -49,7 +49,7 @@ export const ListItem = ({ listItemdata }) => {
       <Styled.ListItemDiv
         onClick={handleClick}
         onDoubleClick={handleDoubleClick}
-        color={listItemdata.selected ? "red" : "#333"}
+        color={listItemdata.selected ? "green" : "#333"}
       >
         <span>{`${firstName} ${lastName}`}</span>
         <span>{`${role}/${organization}`}</span>
