@@ -40,7 +40,7 @@ export const List = () => {
   }
 
   useEffect(() => {
-    if (filterInputValue.length >= 3) {
+    if (filterInputValue.length >= 3 && listDisplayState === "off") {
       setListState(false)
       const listData = leads.filter((lead) => {
         for (const key in lead) {
@@ -56,21 +56,59 @@ export const List = () => {
         }
       })
       setUpdatedListData(listData)
-    } else if (!filterInputValue.length) {
-      setListState(true)
+    } else if (filterInputValue.length >= 3 && listDisplayState === "on") {
+      setListState(false)
+      const listData = updatedLeadsData.filter((lead) => {
+        for (const key in lead) {
+          if (Object.hasOwnProperty.call(lead, key)) {
+            const element = lead[key]
+            if (
+              typeof element === "string" &&
+              element.includes(filterInputValue)
+            ) {
+              return lead
+            }
+          }
+        }
+      })
+      setUpdatedListData(listData)
+    } else if (!filterInputValue.length && listDisplayState === "on") {
+      setListState(false)
+      const listData = leads.filter((lead) => lead.selected === true)
+      setUpdatedListData(listData)
     }
   }, [leads, filterInputValue])
 
   useEffect(() => {
     dispatch(checkFilterState(listDisplayState))
-    if (listDisplayState === "on") {
+    if (!filterInputValue.length && listDisplayState === "on") {
       setListState(false)
       const listData = leads.filter((lead) => lead.selected === true)
       setUpdatedListData(listData)
-    } else if (listDisplayState === "off") {
+    } else if (!filterInputValue.length && listDisplayState === "off") {
       setListState(true)
+    } else if (filterInputValue.length >= 3 && listDisplayState === "on") {
+      setListState(false)
+      const listData = leads.filter((lead) => lead.selected === true)
+      setUpdatedListData(listData)
+    } else if (filterInputValue.length >= 3 && listDisplayState === "off") {
+      setListState(false)
+      const listData = leads.filter((lead) => {
+        for (const key in lead) {
+          if (Object.hasOwnProperty.call(lead, key)) {
+            const element = lead[key]
+            if (
+              typeof element === "string" &&
+              element.includes(filterInputValue)
+            ) {
+              return lead
+            }
+          }
+        }
+      })
+      setUpdatedListData(listData)
     }
-  }, [leads, listDisplayState, dispatch])
+  }, [leads, listDisplayState, dispatch, filterInputValue.length])
 
   let content
   if (isLoading) {
