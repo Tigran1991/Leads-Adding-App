@@ -3,7 +3,6 @@ import addedLeadIdReducer from "../features/addedLeadIdReducerSlice"
 import deletedLeadIdReducer from "../features/deletedLeadIdReducerSlice"
 import slectedLeadIdReducer from "../features/selectedLeadIdReducerSlice"
 import selectedLeadReducer from "../features/selectedLeadReducerSlice"
-import inputValueReducer from "../features/inputValueReducerSlice"
 import submitPropertyReducer from "../features/submitPropertyReducerSlice"
 import clearButtonStateReducer from "../features/clearButtonStateReducerSlice"
 
@@ -20,7 +19,6 @@ export const store = configureStore({
     deletedLeadId: deletedLeadIdReducer,
     selectedLead: selectedLeadReducer,
     selectedLeadId: slectedLeadIdReducer,
-    inputValue: inputValueReducer,
     leadsListState: leadsListStateReducer,
     submitProperty: submitPropertyReducer,
     clearButtonState: clearButtonStateReducer,

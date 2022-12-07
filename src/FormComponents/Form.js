@@ -7,6 +7,7 @@ import {
   useAddLeadMutation,
   useUpdateLeadMutation,
 } from "../redux/app/api/apiSlice"
+import { setSubmitProperty } from "../redux/features/submitPropertyReducerSlice"
 import { Buttons } from "./Buttons/Buttons"
 import { Email } from "./FormInputFields/Email"
 import { FirstName } from "./FormInputFields/FirstName"
@@ -16,9 +17,10 @@ import { Phone } from "./FormInputFields/Phone"
 import { Role } from "./FormInputFields/Role"
 import * as Styled from "./styled"
 import { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 export const Form = () => {
+  const dispatch = useDispatch()
   const [firstNameValue, setFirstNameValue] = useState("")
   const [lastNameValue, setLastNameValue] = useState("")
   const [organizationValue, setOrganizationValue] = useState("")
@@ -59,6 +61,7 @@ export const Form = () => {
       mustBeUpdated
     ) {
       updateLead({ ...leadData })
+      dispatch(setSubmitProperty(false))
       clearFormFields()
     }
   }

@@ -7,30 +7,25 @@
       "role": "Manager",
       "email": "bill@gmail.com",
       "phone": "1234567890",
-      "id": 1,
-      "selected": false
+      "id": 1
     },
     {
       "firstName": "Elon",
       "lastName": "Musk",
-      "organization": "Tesla Motors",
-      "role": "Manager",
+      "organization": "Tesla",
+      "role": "Owner",
       "email": "elon@gmail.com",
       "phone": "1234567899",
-      "id": 2,
-      "selected": true,
-      "completed": true
+      "id": 2
     },
     {
       "firstName": "Jeff",
       "lastName": "Bezos",
       "organization": "Amazon",
-      "role": "Owner",
+      "role": "Manager",
       "email": "jeff@yahoo.com",
       "phone": "1234567899",
-      "id": 3,
-      "selected": false,
-      "completed": true
+      "id": 3
     }
   ]
 }
