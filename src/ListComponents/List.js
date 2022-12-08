@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { checkFilterState } from "../redux/features/filterSelectedStateReducerSlice"
 import { filterByFilterInput } from "../utils"
 
+const MIN_LENGTH_FOR_FILTERING = 3
+
 export const List = () => {
   const dispatch = useDispatch()
   const {
@@ -17,8 +19,8 @@ export const List = () => {
     error,
   } = useGetLeadsQuery()
 
-  const [filterInputValue, setFilterInputValue] = useState("") // filters current value
-  const [listDisplayState, setListDisplayState] = useState("off") // lead list display state by based on filter switcher
+  const [filterInputValue, setFilterInputValue] = useState("")
+  const [listDisplayState, setListDisplayState] = useState("off")
   const [listState, setListState] = useState(true)
   const [updatedLeadsData, setUpdatedListData] = useState([])
 
@@ -44,23 +46,30 @@ export const List = () => {
     }
   }
 
-  console.log(updatedLeadsData)
+  const checkFilteringType = () => {
+    if (selectedState === "Selected") {
+      return filterByFilterInput(updatedLeadsData, filterInputValue)
+    } else {
+      return updatedLeadsData.filter((lead) => lead.selected === true)
+    }
+  }
 
   useEffect(() => {
     dispatch(checkFilterState(listDisplayState))
-    if (filterInputValue.length >= 3 && listDisplayState === "on") {
-      setListState(false)
-      const listData =
-        selectedState === "Selected"
-          ? filterByFilterInput(updatedLeadsData, filterInputValue)
-          : updatedLeadsData.filter((lead) => lead.selected === true)
+    setListState(false)
+    if (
+      filterInputValue.length >= MIN_LENGTH_FOR_FILTERING &&
+      listDisplayState === "on"
+    ) {
+      const listData = checkFilteringType()
       setUpdatedListData(listData)
-    } else if (filterInputValue.length >= 3 && listDisplayState === "off") {
-      setListState(false)
+    } else if (
+      filterInputValue.length >= MIN_LENGTH_FOR_FILTERING &&
+      listDisplayState === "off"
+    ) {
       const listData = filterByFilterInput(leads, filterInputValue)
       setUpdatedListData(listData)
     } else if (!filterInputValue.length && listDisplayState === "on") {
-      setListState(false)
       const listData = leads.filter((lead) => lead.selected === true)
       setUpdatedListData(listData)
     } else if (!filterInputValue.length && listDisplayState === "off") {
@@ -71,7 +80,7 @@ export const List = () => {
     listDisplayState,
     filterInputValue,
     filterInputValue.length,
-    dispatch,
+    selectedState,
   ])
 
   let content

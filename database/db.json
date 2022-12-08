@@ -13,19 +13,21 @@
       "firstName": "Elon",
       "lastName": "Musk",
       "organization": "Tesla",
-      "role": "Owner",
+      "role": "Manager",
       "email": "elon@gmail.com",
       "phone": "1234567899",
-      "id": 2
+      "id": 2,
+      "selected": true
     },
     {
       "firstName": "Jeff",
       "lastName": "Bezos",
       "organization": "Amazon",
-      "role": "Manager",
+      "role": "Owner",
       "email": "jeff@yahoo.com",
       "phone": "1234567899",
-      "id": 3
+      "id": 3,
+      "selected": true
     }
   ]
 }
