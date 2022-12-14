@@ -9,7 +9,7 @@ export const filterSelectedStateSlice = createSlice({
   initialState,
   reducers: {
     checkFilterState: (state, action) => {
-      state.filterState = action.payload === "off" ? "All" : "Selected"
+      state.filterState = action.payload
     },
   },
 })

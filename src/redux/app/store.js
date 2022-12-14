@@ -10,7 +10,9 @@ import { configureStore } from "@reduxjs/toolkit"
 import { apiSlice } from "./api/apiSlice"
 import { setupListeners } from "@reduxjs/toolkit/query"
 import leadsListStateReducer from "../features/leadsListStateReducerSlice"
-import filterSelectedStateSlice from "../features/filterSelectedStateReducerSlice"
+import filterSelectedStateSlice from "../features/filterStateReducerSlice"
+import updatedLeadsDataSlice from "../features/updatedListDataReducerSlice"
+import filterValueReducer from "../features/filterValueReducerSlice"
 
 export const store = configureStore({
   reducer: {
@@ -22,7 +24,9 @@ export const store = configureStore({
     leadsListState: leadsListStateReducer,
     submitProperty: submitPropertyReducer,
     clearButtonState: clearButtonStateReducer,
+    filterValue: filterValueReducer,
     filterSelectedState: filterSelectedStateSlice,
+    updatedLeadsData: updatedLeadsDataSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),

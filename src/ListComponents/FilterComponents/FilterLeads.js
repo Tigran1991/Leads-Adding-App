@@ -1,11 +1,13 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { useGetLeadsQuery } from "../../redux/app/api/apiSlice"
+import { updateFilterValue } from "../../redux/features/filterValueReducerSlice"
 import * as Styled from "./styled"
 
-export const FilterLeads = ({ onChangeFilteredLeads }) => {
+export const FilterLeads = () => {
+  const dispatch = useDispatch()
   const filterLeads = (e) => {
-    onChangeFilteredLeads(e.target.value)
+    dispatch(updateFilterValue(e.target.value))
   }
 
   return (

@@ -3,19 +3,11 @@ import { FilterSwitch } from "./FilterSwitch"
 import { FilterState } from "./FilterState"
 import * as Styled from "./styled"
 
-export const Filter = ({ onChangeFilteredLeads, onChangeListDisplayState }) => {
-  const filterLeads = (value) => {
-    onChangeFilteredLeads(value)
-  }
-
-  const displayState = (value) => {
-    onChangeListDisplayState(value)
-  }
-
+export const Filter = () => {
   return (
     <Styled.FilterWrapper>
-      <FilterLeads onChangeFilteredLeads={filterLeads} />
-      <FilterSwitch onChangeListDisplayState={displayState} />
+      <FilterLeads />
+      <FilterSwitch />
       <FilterState />
     </Styled.FilterWrapper>
   )

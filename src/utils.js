@@ -1,3 +1,5 @@
+export const MIN_LENGTH = 3
+
 export const formInitialState = {
   firstName: "",
   lastName: "",

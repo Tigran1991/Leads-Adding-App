@@ -1,10 +1,19 @@
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { checkFilterState } from "../../redux/features/filterStateReducerSlice"
 import * as Styled from "./styled"
 
-export const FilterSwitch = ({ onChangeListDisplayState }) => {
+export const FilterSwitch = () => {
   const dispatch = useDispatch()
-  const handleDisplayState = (e) => {
-    onChangeListDisplayState(e.target.value)
+
+  const filterState = useSelector(
+    (state) => state.filterSelectedState.filterState
+  )
+  const handleDisplayState = () => {
+    if (filterState === "All") {
+      dispatch(checkFilterState("Selected"))
+    } else {
+      dispatch(checkFilterState("All"))
+    }
   }
 
   return (

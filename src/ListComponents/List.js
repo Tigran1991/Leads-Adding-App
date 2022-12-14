@@ -2,12 +2,10 @@ import { Filter } from "./FilterComponents/Filter"
 import { useGetLeadsQuery } from "../redux/app/api/apiSlice"
 import { ListItem } from "./ListItemComponents/ListItem"
 import * as Styled from "./styled"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { checkFilterState } from "../redux/features/filterSelectedStateReducerSlice"
-import { filterByFilterInput } from "../utils"
-
-const MIN_LENGTH_FOR_FILTERING = 3
+import { filterByFilterInput, MIN_LENGTH } from "../utils"
+import { updateLeadsData } from "../redux/features/updatedListDataReducerSlice"
 
 export const List = () => {
   const dispatch = useDispatch()
@@ -19,79 +17,54 @@ export const List = () => {
     error,
   } = useGetLeadsQuery()
 
-  const [filterInputValue, setFilterInputValue] = useState("")
-  const [listDisplayState, setListDisplayState] = useState("off")
-  const [listState, setListState] = useState(true)
-  const [updatedLeadsData, setUpdatedListData] = useState([])
+  const filterValue = useSelector((state) => state.filterValue.value)
 
-  const selectedState = useSelector(
+  const filterState = useSelector(
     (state) => state.filterSelectedState.filterState
   )
 
+  const leadsData = useSelector((state) => state.updatedLeadsData.leadsData)
+  console.log(leadsData)
+
   useEffect(() => {
     if (isSuccess) {
-      setUpdatedListData(leads)
+      dispatch(updateLeadsData(leads))
     }
-  }, [leads, isSuccess])
+  }, [leads, isSuccess, dispatch])
 
-  const getFilterInputValue = (value) => {
-    setFilterInputValue(value)
-  }
-
-  const getListDisplayState = (value) => {
-    if (listDisplayState === "on") {
-      setListDisplayState("off")
+  const checkFilteringType = useCallback(() => {
+    const list = leads.filter((lead) => lead.selected === true)
+    if (filterState === "Selected") {
+      return filterByFilterInput(list, filterValue)
     } else {
-      setListDisplayState(value)
+      return list.filter((lead) => lead.selected === true)
     }
-  }
+  }, [filterValue, filterState, leadsData])
 
-  const checkFilteringType = () => {
-    if (selectedState === "Selected") {
-      return filterByFilterInput(updatedLeadsData, filterInputValue)
-    } else {
-      return updatedLeadsData.filter((lead) => lead.selected === true)
-    }
-  }
-
-  useEffect(() => {
-    dispatch(checkFilterState(listDisplayState))
-    setListState(false)
-    if (
-      filterInputValue.length >= MIN_LENGTH_FOR_FILTERING &&
-      listDisplayState === "on"
-    ) {
-      const listData = checkFilteringType()
-      setUpdatedListData(listData)
-    } else if (
-      filterInputValue.length >= MIN_LENGTH_FOR_FILTERING &&
-      listDisplayState === "off"
-    ) {
-      const listData = filterByFilterInput(leads, filterInputValue)
-      setUpdatedListData(listData)
-    } else if (!filterInputValue.length && listDisplayState === "on") {
-      const listData = leads.filter((lead) => lead.selected === true)
-      setUpdatedListData(listData)
-    } else if (!filterInputValue.length && listDisplayState === "off") {
-      setListState(true)
-    }
-  }, [
-    leads,
-    listDisplayState,
-    filterInputValue,
-    filterInputValue.length,
-    selectedState,
-  ])
+  const filterValueLength = filterValue.length
+  const filtering = filterState === "Selected" ? true : false
 
   let content
   if (isLoading) {
     content = <p>Loading...</p>
-  } else if (isSuccess && listState) {
-    content = leads.map((lead) => {
+  } else if (filterValueLength <= MIN_LENGTH && !filtering) {
+    const listData = filterByFilterInput(leads, filterValue)
+    content = listData.map((lead) => {
       return <ListItem listItemdata={lead} key={lead.id} />
     })
-  } else if (isSuccess && !listState) {
-    content = updatedLeadsData.map((lead) => {
+  } else if (filterValueLength >= MIN_LENGTH && filtering) {
+    const listData = checkFilteringType()
+    content = listData.map((lead) => {
+      return <ListItem listItemdata={lead} key={lead.id} />
+    })
+  } else if (filterValueLength >= MIN_LENGTH && !filtering) {
+    const listData = filterByFilterInput(leads, filterValue)
+    content = listData.map((lead) => {
+      return <ListItem listItemdata={lead} key={lead.id} />
+    })
+  } else if (filterValueLength <= MIN_LENGTH && filtering) {
+    const listData = leads.filter((lead) => lead.selected === true)
+    content = listData.map((lead) => {
       return <ListItem listItemdata={lead} key={lead.id} />
     })
   } else if (isError) {
@@ -100,10 +73,7 @@ export const List = () => {
 
   return (
     <Styled.ListWrapper>
-      <Filter
-        onChangeFilteredLeads={getFilterInputValue}
-        onChangeListDisplayState={getListDisplayState}
-      />
+      <Filter />
       {content}
     </Styled.ListWrapper>
   )
