@@ -23,9 +23,6 @@ export const List = () => {
     (state) => state.filterSelectedState.filterState
   )
 
-  const leadsData = useSelector((state) => state.updatedLeadsData.leadsData)
-  console.log(leadsData)
-
   useEffect(() => {
     if (isSuccess) {
       dispatch(updateLeadsData(leads))
@@ -39,7 +36,7 @@ export const List = () => {
     } else {
       return list.filter((lead) => lead.selected === true)
     }
-  }, [filterValue, filterState, leadsData])
+  }, [leads, filterValue, filterState])
 
   const filterValueLength = filterValue.length
   const filtering = filterState === "Selected" ? true : false
@@ -47,9 +44,8 @@ export const List = () => {
   let content
   if (isLoading) {
     content = <p>Loading...</p>
-  } else if (filterValueLength <= MIN_LENGTH && !filtering) {
-    const listData = filterByFilterInput(leads, filterValue)
-    content = listData.map((lead) => {
+  } else if (filterValueLength < MIN_LENGTH && !filtering) {
+    content = leads.map((lead) => {
       return <ListItem listItemdata={lead} key={lead.id} />
     })
   } else if (filterValueLength >= MIN_LENGTH && filtering) {
