@@ -14,6 +14,7 @@ import { Role } from "./FormInputFields/Role"
 import * as Styled from "./styled"
 import { memo, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { getSelectedLeadId } from "../redux/features/selectedLeadIdReducerSlice"
 
 export const Form = memo(() => {
   const dispatch = useDispatch()
@@ -47,6 +48,7 @@ export const Form = memo(() => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const leadData = createLeadData(e, selectedLeadId, selectedLead.selected)
+    console.log(leadData)
     if (emailValue.validation && phoneValue.validation) {
       if (!mustBeUpdated) {
         addLead(leadData)
@@ -54,6 +56,7 @@ export const Form = memo(() => {
       } else if (mustBeUpdated) {
         updateLead({ ...leadData })
         dispatch(setSubmitProperty(false))
+        dispatch(getSelectedLeadId(null))
         clearFormFields()
       }
     }

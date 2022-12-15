@@ -6,8 +6,37 @@
       "organization": "Microsoft",
       "role": "Manager",
       "email": "bill@gmail.com",
-      "phone": "(123) 456-7899",
+      "phone": "+1 (234) 567-8999",
       "id": 1
+    },
+    {
+      "firstName": "Elon",
+      "lastName": "Musk",
+      "organization": "Tesla",
+      "role": "Owner",
+      "email": "elon@gmail.com",
+      "phone": "+1 (234) 567-8900",
+      "id": 2,
+      "selected": true
+    },
+    {
+      "firstName": "Jeff",
+      "lastName": "Bezos",
+      "organization": "Amazon",
+      "role": "Owner",
+      "email": "jeff@yahoo.com",
+      "phone": "+1 (234) 567-8990",
+      "id": 3
+    },
+    {
+      "firstName": "Alexis",
+      "lastName": "Ohanyan",
+      "organization": "Reddit",
+      "role": "Manager",
+      "email": "alexis@yahoo.com",
+      "phone": "+1 (234) 567-8999",
+      "id": 4,
+      "selected": true
     }
   ]
 }
