@@ -14,7 +14,7 @@ export const Phone = memo(({ onChange, phone }) => {
         validation: phoneValidation,
       })
 
-      if (phoneValidation || phoneRef.current.value === "(") {
+      if (phoneValidation || phoneRef.current.value === "+") {
         setIsValid(true)
       } else if (!phoneValidation) {
         setIsValid(false)
@@ -32,7 +32,7 @@ export const Phone = memo(({ onChange, phone }) => {
         onChange={handleChange}
         value={phone || ""}
         name="phone"
-        maxLength={14}
+        maxLength={17}
         required
       />
       {!isValid && (

@@ -42,7 +42,8 @@ export const checkEmailValidation = (email) => {
 }
 
 export const checkPhoneValidation = (phone) => {
-  const regEx = /^\(\d{3}\)\s\d{3}-\d{4}$/
+  const regEx =
+    /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/
   if (regEx.test(phone)) {
     return true
   } else if (!regEx.test(phone)) {
@@ -53,14 +54,16 @@ export const checkPhoneValidation = (phone) => {
 export const modifyPhoneFormat = (input) => {
   input = input.replace(/\D/g, "")
   let size = input.length
+  console.log(size)
   if (size > 0) {
-    input = "(" + input
+    input = "+" + input
   }
-  if (size > 3) {
-    input = input.slice(0, 4) + ") " + input.slice(4, 11)
+  if (size > 4) {
+    input =
+      input.slice(0, 2) + " (" + input.slice(2, 5) + ") " + input.slice(5, 12)
   }
-  if (size > 6) {
-    input = input.slice(0, 9) + "-" + input.slice(9)
+  if (size > 7) {
+    input = input.slice(0, 12) + "-" + input.slice(12)
   }
   return input
 }

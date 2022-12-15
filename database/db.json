@@ -1,3 +1,13 @@
 {
-  "leads": []
+  "leads": [
+    {
+      "firstName": "Bill",
+      "lastName": "Gates",
+      "organization": "Microsoft",
+      "role": "Manager",
+      "email": "bill@gmail.com",
+      "phone": "(123) 456-7899",
+      "id": 1
+    }
+  ]
 }

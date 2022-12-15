@@ -73,7 +73,6 @@ export const Form = memo(() => {
   }, [deletedLeadId, clearButtonState])
 
   const setPhone = (value) => {
-    console.log(value)
     const input = value.value
     const validation = value.validation
     const phone = modifyPhoneFormat(input)
