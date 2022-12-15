@@ -1,5 +1,5 @@
 import { memo, useCallback, useRef, useState } from "react"
-import { checkPhoneValidation } from "../../utils"
+import { checkPhoneValidation, modifyPhoneFormat } from "../../utils"
 import * as Styled from "../styled"
 
 export const Phone = memo(({ onChange, phone }) => {
@@ -8,7 +8,9 @@ export const Phone = memo(({ onChange, phone }) => {
 
   const handleChange = useCallback(
     (e) => {
-      const phoneValidation = checkPhoneValidation(e.target.value)
+      const phoneInModifiedFormat = modifyPhoneFormat(e.target.value)
+      const phoneValidation = checkPhoneValidation(phoneInModifiedFormat)
+      console.log(phoneValidation)
       onChange({
         value: e.target.value,
         validation: phoneValidation,

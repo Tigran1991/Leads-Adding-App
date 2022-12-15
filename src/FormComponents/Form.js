@@ -48,7 +48,6 @@ export const Form = memo(() => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const leadData = createLeadData(e, selectedLeadId, selectedLead.selected)
-    console.log(leadData)
     if (emailValue.validation && phoneValue.validation) {
       if (!mustBeUpdated) {
         addLead(leadData)

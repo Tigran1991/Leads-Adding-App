@@ -7,7 +7,8 @@
       "role": "Manager",
       "email": "bill@gmail.com",
       "phone": "+1 (234) 567-8999",
-      "id": 1
+      "id": 1,
+      "selected": true
     },
     {
       "firstName": "Elon",
@@ -15,26 +16,16 @@
       "organization": "Tesla",
       "role": "Owner",
       "email": "elon@gmail.com",
-      "phone": "+1 (234) 567-8900",
-      "id": 2,
-      "selected": true
-    },
-    {
-      "firstName": "Jeff",
-      "lastName": "Bezos",
-      "organization": "Amazon",
-      "role": "Owner",
-      "email": "jeff@yahoo.com",
-      "phone": "+1 (234) 567-8990",
-      "id": 3
+      "phone": "+3 (456) 789-9999",
+      "id": 2
     },
     {
       "firstName": "Alexis",
       "lastName": "Ohanyan",
       "organization": "Reddit",
-      "role": "Manager",
+      "role": "CEO",
       "email": "alexis@yahoo.com",
-      "phone": "+1 (234) 567-8999",
+      "phone": "+3 (233) 456-7899",
       "id": 4,
       "selected": true
     }

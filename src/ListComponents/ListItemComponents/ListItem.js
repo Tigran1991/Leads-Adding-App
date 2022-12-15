@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { getSelectedLead } from "../../redux/features/selectedLeadReducerSlice"
 import * as Styled from "./styled"
 import {
@@ -9,9 +9,6 @@ import { setSubmitProperty } from "../../redux/features/submitPropertyReducerSli
 import { getSelectedLeadId } from "../../redux/features/selectedLeadIdReducerSlice"
 import { getDeletedLeadId } from "../../redux/features/deletedLeadIdReducerSlice"
 import useClickPreventionOnDoubleClick from "./customHooks/useClickPreventionOnDoubleClick"
-import { useState } from "react"
-import { createLeadData } from "../../utils"
-import { checkLeadListState } from "../../redux/features/leadsListStateReducerSlice"
 
 export const ListItem = ({ listItemdata }) => {
   const [updateLead] = useUpdateLeadMutation()
@@ -44,6 +41,13 @@ export const ListItem = ({ listItemdata }) => {
     dispatch(getDeletedLeadId(listItemdata.id))
   }
 
+  const LIST_ITEM_ELEMENTS = [
+    `${firstName} ${lastName}`,
+    `${role}/${organization}`,
+    email,
+    phone,
+  ]
+
   return (
     <>
       <Styled.ListItemDiv
@@ -51,10 +55,11 @@ export const ListItem = ({ listItemdata }) => {
         onDoubleClick={handleDoubleClick}
         color={listItemdata.selected ? "green" : "#333"}
       >
-        <span>{`${firstName} ${lastName}`}</span>
-        <span>{`${role}/${organization}`}</span>
-        <span>{email}</span>
-        <span>{phone}</span>
+        {LIST_ITEM_ELEMENTS.map((element) => {
+          return (
+            <span key={LIST_ITEM_ELEMENTS.indexOf(element)}>{element}</span>
+          )
+        })}
         <Styled.DeleteItemDiv
           onClick={deleteItemElement}
         ></Styled.DeleteItemDiv>

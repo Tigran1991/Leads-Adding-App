@@ -42,8 +42,7 @@ export const checkEmailValidation = (email) => {
 }
 
 export const checkPhoneValidation = (phone) => {
-  const regEx =
-    /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/
+  const regEx = /^(\+\d{1,2}\s?)?1?-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/
   if (regEx.test(phone)) {
     return true
   } else if (!regEx.test(phone)) {

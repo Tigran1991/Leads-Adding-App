@@ -24,30 +24,30 @@ export const List = memo(() => {
   const filterValueLength = filterValue.length
   const filtering = filterState === "Selected" ? true : false
 
-  const todo = (todo1) => {
-    return <ListItem listItemdata={todo1} key={todo1.id} />
+  const makingListItem = (listItem) => {
+    return <ListItem listItemdata={listItem} key={listItem.id} />
   }
 
-  const todo2 = () => {
+  const filteringLeads = () => {
     if (filterValueLength < MIN_LENGTH && !filtering) {
       content = leads.map((lead) => {
-        return todo(lead)
+        return makingListItem(lead)
       })
     } else if (filterValueLength >= MIN_LENGTH && filtering) {
       const filteredList = leads.filter((lead) => lead.selected === true)
       const contentData = filterByFilterInput(filteredList, filterValue)
       content = contentData.map((lead) => {
-        return todo(lead)
+        return makingListItem(lead)
       })
     } else if (filterValueLength >= MIN_LENGTH && !filtering) {
       const contentData = filterByFilterInput(leads, filterValue)
       content = contentData.map((lead) => {
-        return todo(lead)
+        return makingListItem(lead)
       })
     } else if (filterValueLength <= MIN_LENGTH && filtering) {
       const filteredList = leads.filter((lead) => lead.selected === true)
       content = filteredList.map((lead) => {
-        return todo(lead)
+        return makingListItem(lead)
       })
     }
   }
@@ -56,7 +56,7 @@ export const List = memo(() => {
   if (isLoading) {
     content = <p>Loading...</p>
   } else if (isSuccess) {
-    todo2()
+    filteringLeads()
   } else if (isError) {
     content = <p>{error}</p>
   }
