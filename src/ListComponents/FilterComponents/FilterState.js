@@ -1,7 +1,8 @@
+import { memo } from "react"
 import { useSelector } from "react-redux"
 import * as Styled from "./styled"
 
-export const FilterState = () => {
+export const FilterState = memo(() => {
   const selectedState = useSelector(
     (state) => state.filterSelectedState.filterState
   )
@@ -10,4 +11,4 @@ export const FilterState = () => {
       <span>{selectedState}</span>
     </Styled.SelectedState>
   )
-}
+})

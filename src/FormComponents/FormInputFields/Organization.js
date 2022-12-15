@@ -1,9 +1,13 @@
+import { memo, useCallback } from "react"
 import * as Styled from "../styled"
 
-export const Organization = ({ onChange, organization }) => {
-  const handleChange = (e) => {
-    onChange(e.target.value)
-  }
+export const Organization = memo(({ onChange, organization }) => {
+  const handleChange = useCallback(
+    (e) => {
+      onChange(e.target.value)
+    },
+    [onChange]
+  )
 
   return (
     <Styled.InputWrapper>
@@ -17,4 +21,4 @@ export const Organization = ({ onChange, organization }) => {
       />
     </Styled.InputWrapper>
   )
-}
+})

@@ -42,12 +42,27 @@ export const checkEmailValidation = (email) => {
 }
 
 export const checkPhoneValidation = (phone) => {
-  const regEx = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/
+  const regEx = /^\(\d{3}\)\s\d{3}-\d{4}$/
   if (regEx.test(phone)) {
     return true
   } else if (!regEx.test(phone)) {
     return false
   }
+}
+
+export const modifyPhoneFormat = (input) => {
+  input = input.replace(/\D/g, "")
+  let size = input.length
+  if (size > 0) {
+    input = "(" + input
+  }
+  if (size > 3) {
+    input = input.slice(0, 4) + ") " + input.slice(4, 11)
+  }
+  if (size > 6) {
+    input = input.slice(0, 9) + "-" + input.slice(9)
+  }
+  return input
 }
 
 const filterLeads = (leadValue, filtrableValue) => {

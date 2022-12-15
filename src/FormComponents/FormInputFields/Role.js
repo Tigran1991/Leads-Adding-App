@@ -1,10 +1,14 @@
+import { memo, useCallback } from "react"
 import { options } from "../../utils"
 import * as Styled from "../styled"
 
-export const Role = ({ onChange, role }) => {
-  const handleChange = (e) => {
-    onChange(e.target.value)
-  }
+export const Role = memo(({ onChange, role }) => {
+  const handleChange = useCallback(
+    (e) => {
+      onChange(e.target.value)
+    },
+    [onChange]
+  )
 
   return (
     <Styled.InputWrapper>
@@ -29,4 +33,4 @@ export const Role = ({ onChange, role }) => {
       </Styled.RoleDiv>
     </Styled.InputWrapper>
   )
-}
+})

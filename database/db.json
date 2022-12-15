@@ -1,33 +1,3 @@
 {
-  "leads": [
-    {
-      "firstName": "Bill",
-      "lastName": "Gates",
-      "organization": "Microsoft",
-      "role": "Manager",
-      "email": "bill@gmail.com",
-      "phone": "1234567899",
-      "id": 1
-    },
-    {
-      "firstName": "Elon",
-      "lastName": "Musk",
-      "organization": "Tesla Motors",
-      "role": "Manager",
-      "email": "elon@gmail.com",
-      "phone": "1234567899",
-      "id": 2,
-      "selected": true
-    },
-    {
-      "firstName": "Jeff",
-      "lastName": "Bezos",
-      "organization": "Amazon",
-      "role": "Owner",
-      "email": "jeff@yahoo.com",
-      "phone": "1234567899",
-      "id": 3,
-      "selected": true
-    }
-  ]
+  "leads": []
 }

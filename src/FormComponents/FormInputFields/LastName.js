@@ -1,9 +1,13 @@
+import { memo, useCallback } from "react"
 import * as Styled from "../styled"
 
-export const LastName = ({ onChange, lastName }) => {
-  const handleChange = (e) => {
-    onChange(e.target.value)
-  }
+export const LastName = memo(({ onChange, lastName }) => {
+  const handleChange = useCallback(
+    (e) => {
+      onChange(e.target.value)
+    },
+    [onChange]
+  )
   return (
     <Styled.InputWrapper>
       <Styled.LastNameDiv
@@ -16,4 +20,4 @@ export const LastName = ({ onChange, lastName }) => {
       />
     </Styled.InputWrapper>
   )
-}
+})

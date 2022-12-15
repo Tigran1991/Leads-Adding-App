@@ -1,25 +1,34 @@
-import { useState } from "react"
+import { memo, useCallback, useRef, useState } from "react"
 import { checkEmailValidation } from "../../utils"
 import * as Styled from "../styled"
 
-export const Email = ({ onChange, email }) => {
+export const Email = memo(({ onChange, email }) => {
+  const emailRef = useRef()
   const [isValid, setIsValid] = useState(true)
 
-  const handleChange = (e) => {
-    onChange(e.target.value)
-    const emailValidation = checkEmailValidation(e.target.value)
-    if (emailValidation) {
-      setIsValid(true)
-    } else if (!emailValidation) {
-      setIsValid(false)
-    }
-  }
+  const handleChange = useCallback(
+    (e) => {
+      const emailValidation = checkEmailValidation(e.target.value)
+      onChange({
+        value: e.target.value,
+        validation: emailValidation,
+      })
+
+      if (emailValidation || emailRef.current.value === "") {
+        setIsValid(true)
+      } else if (!emailValidation) {
+        setIsValid(false)
+      }
+    },
+    [onChange]
+  )
 
   return (
     <Styled.InputWrapper>
       <Styled.EmailDiv
         type="email"
         placeholder="Email"
+        ref={emailRef}
         onChange={handleChange}
         value={email || ""}
         name="email"
@@ -32,4 +41,4 @@ export const Email = ({ onChange, email }) => {
       )}
     </Styled.InputWrapper>
   )
-}
+})

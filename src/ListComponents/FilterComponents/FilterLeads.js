@@ -1,10 +1,10 @@
-import { useState } from "react"
+import { memo, useState } from "react"
 import { useDispatch } from "react-redux"
 import { useGetLeadsQuery } from "../../redux/app/api/apiSlice"
 import { updateFilterValue } from "../../redux/features/filterValueReducerSlice"
 import * as Styled from "./styled"
 
-export const FilterLeads = () => {
+export const FilterLeads = memo(() => {
   const dispatch = useDispatch()
   const filterLeads = (e) => {
     dispatch(updateFilterValue(e.target.value))
@@ -20,4 +20,4 @@ export const FilterLeads = () => {
       <Styled.SearchIcon />
     </Styled.FilterFieldWrapper>
   )
-}
+})

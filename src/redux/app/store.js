@@ -11,7 +11,6 @@ import { apiSlice } from "./api/apiSlice"
 import { setupListeners } from "@reduxjs/toolkit/query"
 import leadsListStateReducer from "../features/leadsListStateReducerSlice"
 import filterSelectedStateSlice from "../features/filterStateReducerSlice"
-import updatedLeadsDataSlice from "../features/updatedListDataReducerSlice"
 import filterValueReducer from "../features/filterValueReducerSlice"
 
 export const store = configureStore({
@@ -26,7 +25,6 @@ export const store = configureStore({
     clearButtonState: clearButtonStateReducer,
     filterValue: filterValueReducer,
     filterSelectedState: filterSelectedStateSlice,
-    updatedLeadsData: updatedLeadsDataSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),

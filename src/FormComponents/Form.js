@@ -1,8 +1,4 @@
-import {
-  checkEmailValidation,
-  checkPhoneValidation,
-  createLeadData,
-} from "../utils"
+import { createLeadData, modifyPhoneFormat } from "../utils"
 import {
   useAddLeadMutation,
   useUpdateLeadMutation,
@@ -16,29 +12,30 @@ import { Organization } from "./FormInputFields/Organization"
 import { Phone } from "./FormInputFields/Phone"
 import { Role } from "./FormInputFields/Role"
 import * as Styled from "./styled"
-import { useEffect, useState } from "react"
+import { memo, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
-export const Form = () => {
+export const Form = memo(() => {
   const dispatch = useDispatch()
   const [firstNameValue, setFirstNameValue] = useState("")
   const [lastNameValue, setLastNameValue] = useState("")
   const [organizationValue, setOrganizationValue] = useState("")
   const [roleValue, setRoleValue] = useState("")
-  const [phoneValue, setPhoneValue] = useState("")
-  const [emailValue, setEmailValue] = useState("")
+  const [phoneValue, setPhoneValue] = useState({ value: "", validation: false })
+  const [emailValue, setEmailValue] = useState({ value: "", validation: false })
 
   const clearFormFields = () => {
     setFirstNameValue("")
     setLastNameValue("")
     setOrganizationValue("")
     setRoleValue("")
-    setPhoneValue("")
-    setEmailValue("")
+    setPhoneValue({ value: "", validation: false })
+    setEmailValue({ value: "", validation: false })
   }
 
   const [addLead] = useAddLeadMutation()
   const [updateLead] = useUpdateLeadMutation()
+
   const selectedLead = useSelector((state) => state.selectedLead.lead)
   const selectedLeadId = useSelector((state) => state.selectedLeadId.id)
   const deletedLeadId = useSelector((state) => state.deletedLeadId.id)
@@ -49,20 +46,16 @@ export const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const emailValidationStatus = checkEmailValidation(e.target.email.value)
-    const phoneValidationStatus = checkPhoneValidation(e.target.phone.value)
     const leadData = createLeadData(e, selectedLeadId, selectedLead.selected)
-    if (emailValidationStatus && phoneValidationStatus && !mustBeUpdated) {
-      addLead(leadData)
-      clearFormFields()
-    } else if (
-      emailValidationStatus &&
-      phoneValidationStatus &&
-      mustBeUpdated
-    ) {
-      updateLead({ ...leadData })
-      dispatch(setSubmitProperty(false))
-      clearFormFields()
+    if (emailValue.validation && phoneValue.validation) {
+      if (!mustBeUpdated) {
+        addLead(leadData)
+        clearFormFields()
+      } else if (mustBeUpdated) {
+        updateLead({ ...leadData })
+        dispatch(setSubmitProperty(false))
+        clearFormFields()
+      }
     }
   }
 
@@ -71,13 +64,21 @@ export const Form = () => {
     setLastNameValue(selectedLead.lastName)
     setOrganizationValue(selectedLead.organization)
     setRoleValue(selectedLead.role)
-    setPhoneValue(selectedLead.phone)
-    setEmailValue(selectedLead.email)
+    setPhoneValue({ value: selectedLead.phone, validation: true })
+    setEmailValue({ value: selectedLead.email, validation: true })
   }, [selectedLead])
 
   useEffect(() => {
     clearFormFields()
   }, [deletedLeadId, clearButtonState])
+
+  const setPhone = (value) => {
+    console.log(value)
+    const input = value.value
+    const validation = value.validation
+    const phone = modifyPhoneFormat(input)
+    setPhoneValue({ value: phone, validation: validation })
+  }
 
   return (
     <Styled.FormWrapper>
@@ -95,10 +96,13 @@ export const Form = () => {
           organization={organizationValue}
         />
         <Role onChange={(value) => setRoleValue(value)} role={roleValue} />
-        <Email onChange={(value) => setEmailValue(value)} email={emailValue} />
-        <Phone onChange={(value) => setPhoneValue(value)} phone={phoneValue} />
+        <Email
+          onChange={(value) => setEmailValue(value)}
+          email={emailValue.value}
+        />
+        <Phone onChange={setPhone} phone={phoneValue.value} />
         <Buttons />
       </Styled.Form>
     </Styled.FormWrapper>
   )
-}
+})

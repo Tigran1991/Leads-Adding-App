@@ -1,8 +1,9 @@
+import { memo } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { checkFilterState } from "../../redux/features/filterStateReducerSlice"
 import * as Styled from "./styled"
 
-export const FilterSwitch = () => {
+export const FilterSwitch = memo(() => {
   const dispatch = useDispatch()
 
   const filterState = useSelector(
@@ -24,4 +25,4 @@ export const FilterSwitch = () => {
       </Styled.Switch>
     </>
   )
-}
+})
