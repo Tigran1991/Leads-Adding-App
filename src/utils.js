@@ -1,4 +1,4 @@
-export const MIN_LENGTH = 3
+export const MIN_LENGTH = 4
 
 export const formInitialState = {
   firstName: "",
@@ -28,7 +28,7 @@ export const createLeadData = (event, selectedId, state) => {
     email: event.target.email.value,
     phone: event.target.phone.value,
     id: selectedId,
-    selected: state,
+    selected: state === undefined ? false : state,
   }
 }
 
@@ -67,6 +67,9 @@ export const modifyPhoneFormat = (input) => {
   return input
 }
 
+export const filterListStat = (leadsData) =>
+  leadsData.filter((lead) => lead.selected === true)
+
 const filterLeads = (leadValue, filtrableValue) => {
   for (const key in leadValue) {
     if (Object.hasOwnProperty.call(leadValue, key)) {
@@ -78,7 +81,7 @@ const filterLeads = (leadValue, filtrableValue) => {
   }
 }
 
-export const filterByFilterInput = (leadsList, leadValue) => {
+export const filteringByFilterInput = (leadsList, leadValue) => {
   const listData = leadsList.filter((lead) => {
     return filterLeads(lead, leadValue)
   })

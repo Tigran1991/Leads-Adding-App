@@ -14,20 +14,31 @@
       "firstName": "Elon",
       "lastName": "Musk",
       "organization": "Tesla",
-      "role": "Owner",
+      "role": "Manager",
       "email": "elon@gmail.com",
-      "phone": "+3 (456) 789-9999",
-      "id": 2
+      "phone": "+1 (234) 567-8990",
+      "id": 2,
+      "selected": true
+    },
+    {
+      "firstName": "Jeff",
+      "lastName": "Bezos",
+      "organization": "Amazon",
+      "role": "Owner",
+      "email": "jeff@yahoo.com",
+      "phone": "+1 (234) 567-8999",
+      "id": 3,
+      "selected": true
     },
     {
       "firstName": "Alexis",
       "lastName": "Ohanyan",
       "organization": "Reddit",
       "role": "CEO",
-      "email": "alexis@yahoo.com",
-      "phone": "+3 (233) 456-7899",
+      "email": "alexis@gmail.com",
+      "phone": "+1 (234) 567-8999",
       "id": 4,
-      "selected": true
+      "selected": false
     }
   ]
 }

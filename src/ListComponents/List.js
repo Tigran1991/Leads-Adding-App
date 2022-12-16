@@ -4,7 +4,7 @@ import { ListItem } from "./ListItemComponents/ListItem"
 import * as Styled from "./styled"
 import { memo } from "react"
 import { useSelector } from "react-redux"
-import { filterByFilterInput, MIN_LENGTH } from "../utils"
+import { filteringByFilterInput, filterListStat, MIN_LENGTH } from "../utils"
 
 export const List = memo(() => {
   const {
@@ -34,18 +34,18 @@ export const List = memo(() => {
         return makingListItem(lead)
       })
     } else if (filterValueLength >= MIN_LENGTH && filtering) {
-      const filteredList = leads.filter((lead) => lead.selected === true)
-      const contentData = filterByFilterInput(filteredList, filterValue)
+      const filteredList = filterListStat(leads)
+      const contentData = filteringByFilterInput(filteredList, filterValue)
       content = contentData.map((lead) => {
         return makingListItem(lead)
       })
     } else if (filterValueLength >= MIN_LENGTH && !filtering) {
-      const contentData = filterByFilterInput(leads, filterValue)
+      const contentData = filteringByFilterInput(leads, filterValue)
       content = contentData.map((lead) => {
         return makingListItem(lead)
       })
     } else if (filterValueLength <= MIN_LENGTH && filtering) {
-      const filteredList = leads.filter((lead) => lead.selected === true)
+      const filteredList = filterListStat(leads)
       content = filteredList.map((lead) => {
         return makingListItem(lead)
       })
