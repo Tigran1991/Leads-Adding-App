@@ -1,4 +1,6 @@
-export const MIN_LENGTH = 4
+export const MIN_LENGTH = 3
+
+export const initialValuesOfEmailAndPhone = { value: "", validation: false }
 
 export const formInitialState = {
   firstName: "",

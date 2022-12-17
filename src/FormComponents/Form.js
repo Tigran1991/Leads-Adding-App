@@ -1,4 +1,8 @@
-import { createLeadData, modifyPhoneFormat } from "../utils"
+import {
+  createLeadData,
+  initialValuesOfEmailAndPhone,
+  modifyPhoneFormat,
+} from "../utils"
 import {
   useAddLeadMutation,
   useUpdateLeadMutation,
@@ -22,16 +26,16 @@ export const Form = memo(() => {
   const [lastNameValue, setLastNameValue] = useState("")
   const [organizationValue, setOrganizationValue] = useState("")
   const [roleValue, setRoleValue] = useState("")
-  const [phoneValue, setPhoneValue] = useState({ value: "", validation: false })
-  const [emailValue, setEmailValue] = useState({ value: "", validation: false })
+  const [phoneValue, setPhoneValue] = useState(initialValuesOfEmailAndPhone)
+  const [emailValue, setEmailValue] = useState(initialValuesOfEmailAndPhone)
 
   const clearFormFields = () => {
     setFirstNameValue("")
     setLastNameValue("")
     setOrganizationValue("")
     setRoleValue("")
-    setPhoneValue({ value: "", validation: false })
-    setEmailValue({ value: "", validation: false })
+    setPhoneValue(initialValuesOfEmailAndPhone)
+    setEmailValue(initialValuesOfEmailAndPhone)
   }
 
   const [addLead] = useAddLeadMutation()
@@ -51,13 +55,12 @@ export const Form = memo(() => {
     if (emailValue.validation && phoneValue.validation) {
       if (!mustBeUpdated) {
         addLead(leadData)
-        clearFormFields()
       } else if (mustBeUpdated) {
         updateLead({ ...leadData })
         dispatch(setSubmitProperty(false))
         dispatch(getSelectedLeadId(null))
-        clearFormFields()
       }
+      clearFormFields()
     }
   }
 

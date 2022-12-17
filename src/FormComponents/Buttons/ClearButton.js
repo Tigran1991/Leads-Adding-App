@@ -9,7 +9,7 @@ export const ClearButton = () => {
   }
 
   return (
-    <Styled.ClearButtonElement onClick={handleClick}>
+    <Styled.ClearButtonElement type="button" onClick={handleClick}>
       Clear
     </Styled.ClearButtonElement>
   )

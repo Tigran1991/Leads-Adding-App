@@ -12,7 +12,7 @@ import useClickPreventionOnDoubleClick from "./customHooks/useClickPreventionOnD
 
 export const ListItem = ({ listItemdata }) => {
   const [updateLead] = useUpdateLeadMutation()
-  const [deleteItem] = useDeleteLeadMutation()
+  const [deleteLead] = useDeleteLeadMutation()
   const dispatch = useDispatch()
 
   const { firstName, lastName, organization, role, email, phone } = listItemdata
@@ -37,7 +37,7 @@ export const ListItem = ({ listItemdata }) => {
 
   const deleteItemElement = (e) => {
     e.stopPropagation()
-    deleteItem({ id: listItemdata.id })
+    deleteLead({ id: listItemdata.id })
     dispatch(getDeletedLeadId(listItemdata.id))
   }
 
