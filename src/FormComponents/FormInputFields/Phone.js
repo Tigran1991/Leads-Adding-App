@@ -10,7 +10,6 @@ export const Phone = memo(({ onChange, phone }) => {
     (e) => {
       const phoneInModifiedFormat = modifyPhoneFormat(e.target.value)
       const phoneValidation = checkPhoneValidation(phoneInModifiedFormat)
-      console.log(phoneValidation)
       onChange({
         value: e.target.value,
         validation: phoneValidation,

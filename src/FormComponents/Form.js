@@ -74,7 +74,6 @@ export const Form = memo(() => {
   }, [selectedLead])
 
   useEffect(() => {
-    console.log("a")
     clearFormFields()
   }, [deletedLeadId, clearButtonState])
 

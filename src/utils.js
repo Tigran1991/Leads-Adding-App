@@ -55,7 +55,6 @@ export const checkPhoneValidation = (phone) => {
 export const modifyPhoneFormat = (input) => {
   input = input.replace(/\D/g, "")
   let size = input.length
-  console.log(size)
   if (size > 0) {
     input = "+" + input
   }
