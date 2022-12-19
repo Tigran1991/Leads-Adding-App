@@ -1,6 +1,5 @@
 import {
   createLeadData,
-  formInitialState,
   initialValuesOfEmailAndPhone,
   modifyPhoneFormat,
 } from "../utils"
@@ -20,7 +19,6 @@ import * as Styled from "./styled"
 import { memo, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getSelectedLeadId } from "../redux/features/selectedLeadIdReducerSlice"
-import { getSelectedLead } from "../redux/features/selectedLeadReducerSlice"
 
 export const Form = memo(() => {
   const dispatch = useDispatch()
@@ -38,7 +36,6 @@ export const Form = memo(() => {
     setRoleValue("")
     setPhoneValue(initialValuesOfEmailAndPhone)
     setEmailValue(initialValuesOfEmailAndPhone)
-    dispatch(getSelectedLead(formInitialState))
   }
 
   const [addLead] = useAddLeadMutation()

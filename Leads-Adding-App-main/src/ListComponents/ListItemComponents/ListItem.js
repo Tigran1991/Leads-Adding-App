@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { getSelectedLead } from "../../redux/features/selectedLeadReducerSlice"
 import * as Styled from "./styled"
 import {
@@ -17,11 +17,9 @@ export const ListItem = ({ listItemdata }) => {
 
   const { firstName, lastName, organization, role, email, phone } = listItemdata
 
-  const clickOnListItem = useSelector((state) => state.submitProperty.property)
-
   const onClick = (e) => {
     dispatch(getSelectedLead(listItemdata))
-    dispatch(setSubmitProperty(!clickOnListItem))
+    dispatch(setSubmitProperty(true))
     dispatch(getSelectedLeadId(listItemdata.id))
   }
 
